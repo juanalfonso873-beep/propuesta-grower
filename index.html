@@ -6,188 +6,242 @@
     <title>GROWER STUDIO — Propuesta Premium</title>
     <style>
         :root {
-            /* Paleta extraída del render: verde oscuro, salvia y vidrio */
-            --bg-dark: #0A0F0B;
-            --teal-deep: #1F2E22;
-            --matcha-glow: #6E8868;
-            --glass-base: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text-main: #FFFFFF;
-            --text-muted: #8A9A8C;
+            /* Paleta exacta del screenshot */
+            --bg-metallic: #DCE5E1;
+            --grower-green: #1F2E22;
+            --glass-sheet: rgba(255, 255, 255, 0.35);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-inner-glow: rgba(255, 255, 255, 0.8);
+            --text-muted: #536456;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-metallic);
+            color: var(--grower-green);
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
         }
 
-        /* FONDO LÍQUIDO ULTRA REALISTA (ESTILO VISION PRO) */
-        .liquid-canvas {
+        /* FONDO DE METAL LÍQUIDO CON REFLEJOS ARCOÍRIS (PROCEDURAL) */
+        .liquid-metal-canvas {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 50%, #0F1A12 0%, #050806 100%);
+            background: linear-gradient(140deg, #E6ECE9 0%, #CCD7D2 50%, #B8C4BF 100%);
         }
 
-        .liquid-blob {
+        /* Ondas y distorsiones cromáticas de la foto */
+        .prism-wave {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            mix-blend-mode: screen;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            filter: blur(60px);
             opacity: 0.45;
-            animation: fluidMovement 25s infinite alternate ease-in-out;
+            mix-blend-mode: color-burn;
+            animation: waveFlow 20s infinite alternate ease-in-out;
         }
 
-        .blob-1 { top: -20%; left: -10%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(110,136,104,0.4) 0%, rgba(31,46,34,0) 70%); }
-        .blob-2 { bottom: -20%; right: -10%; width: 80vw; height: 80vw; background: radial-gradient(circle, rgba(142,168,157,0.35) 0%, rgba(10,15,11,0) 70%); animation-delay: -7s; }
-        .blob-3 { top: 35%; left: 20%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(230,240,233,0.15) 0%, rgba(31,46,34,0) 60%); animation-delay: -3s; }
-
-        @keyframes fluidMovement {
-            0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-            50% { transform: translate(40px, 60px) scale(1.05) rotate(180deg); }
-            100% { transform: translate(-20px, -40px) scale(0.95) rotate(360deg); }
+        .wave-1 {
+            top: -10%; left: -20%; width: 90vw; height: 90vw;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(200,220,210,0.2) 70%);
         }
 
+        .wave-2 {
+            bottom: -20%; right: -10%; width: 100vw; height: 100vw;
+            background: linear-gradient(45deg, rgba(110,136,104,0.3), rgba(220,240,230,0.5));
+            animation-duration: 26s;
+        }
+
+        /* Destellos iridiscentes sutiles en las esquinas */
+        .iridescent-gleam {
+            position: absolute;
+            top: 20%; left: 15%; width: 70vw; height: 50vh;
+            background: linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.04), rgba(0,0,255,0.06));
+            filter: blur(80px);
+            transform: rotate(-15deg);
+            animation: sheenShift 12s infinite alternate ease-in-out;
+        }
+
+        @keyframes waveFlow {
+            0% { transform: translate(0px, 0px) rotate(0deg) scale(1); border-radius: 40% 60% 70% 30%; }
+            50% { transform: translate(40px, -60px) rotate(90deg) scale(1.1); border-radius: 60% 40% 50% 70%; }
+            100% { transform: translate(-20px, 30px) rotate(180deg) scale(0.95); border-radius: 50% 60% 40% 60%; }
+        }
+
+        @keyframes sheenShift {
+            0% { opacity: 0.3; transform: translateX(-20px) rotate(-15deg); }
+            100% { opacity: 0.6; transform: translateX(20px) rotate(-10deg); }
+        }
+
+        /* SECCIONES Y ENCUADRE */
         section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 80px 24px;
+            padding: 100px 24px;
             position: relative;
         }
 
+        /* MENÚ DE CÁPSULAS FLOTANTES DE VIDRIO (IGUAL AL DE TU IMAGEN) */
         .brand-header {
             position: absolute;
             top: 40px; left: 0; width: 100%;
-            display: flex; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; align-items: center; gap: 24px;
             z-index: 10;
+            padding: 0 24px;
         }
 
-        .brand-logo {
-            font-size: 1.1rem; font-weight: 700; letter-spacing: 6px;
-            text-transform: uppercase; color: var(--text-main);
-            display: flex; align-items: center; gap: 10px;
+        @media (min-width: 768px) {
+            .brand-header { flex-direction: row; justify-content: space-between; max-width: 1100px; left: 50%; transform: translateX(-50%); }
         }
 
-        .brand-logo span { font-weight: 300; opacity: 0.5; }
-        .brand-logo::before {
-            content: ''; width: 8px; height: 8px; border-radius: 50%;
-            background: var(--matcha-glow); box-shadow: 0 0 10px var(--matcha-glow);
+        .brand-box {
+            background: var(--glass-sheet);
+            backdrop-filter: blur(30px) saturate(140%);
+            -webkit-backdrop-filter: blur(30px) saturate(140%);
+            border: 2px solid var(--glass-border);
+            border-radius: 18px; padding: 14px 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06), inset 0 2px 2px var(--glass-inner-glow);
         }
 
-        /* POP-UP REVEAL */
+        .brand-logo-text {
+            font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1;
+        }
+        .brand-logo-text span {
+            display: block; font-size: 0.65rem; font-weight: 600; letter-spacing: 1px;
+            opacity: 0.7; margin-top: 2px; text-transform: uppercase;
+        }
+
+        .nav-capsules {
+            display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+        }
+
+        .capsule {
+            background: var(--glass-sheet);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border: 2px solid var(--glass-border);
+            padding: 10px 20px; border-radius: 100px;
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--grower-green);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04), inset 0 1.5px 1.5px var(--glass-inner-glow);
+        }
+
+        /* ENGINE DE POP-UP ANIMADO */
         .reveal {
             opacity: 0;
-            transform: scale(0.94) translateY(40px);
-            transition: all 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.95) translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
             width: 100%; max-width: 680px;
         }
-
         .reveal.active { opacity: 1; transform: scale(1) translateY(0); }
 
+        /* HERO PRINCIPAL */
         .hero-content h1 {
-            font-size: 2.8rem; line-height: 1.2; font-weight: 800; letter-spacing: -1px; margin-bottom: 24px;
-            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.65) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1;
+            margin-bottom: 20px; text-transform: uppercase;
         }
+        .hero-content p { font-size: 1.2rem; color: var(--text-muted); line-height: 1.5; max-width: 520px; margin: 0 auto; }
 
-        .hero-content p { font-size: 1.25rem; color: var(--text-muted); line-height: 1.6; max-width: 560px; margin: 0 auto; }
-        .section-meta { font-size: 0.8rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--matcha-glow); margin-bottom: 12px; }
-        .section-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 40px; }
+        .section-meta { font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; margin-bottom: 8px; }
+        .section-title { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 40px; text-transform: uppercase; }
 
-        /* TARJETAS LIQUID GLASS */
+        /* PLACAS DE VIDRIO EN 3D DE GROSOR AVANZADO (LIQUID GLASS PLATES) */
         .liquid-glass-plate {
-            background: var(--glass-base);
-            backdrop-filter: blur(40px) saturate(210%);
-            -webkit-backdrop-filter: blur(40px) saturate(210%);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px; padding: 35px 30px; margin-bottom: 24px;
+            background: var(--glass-sheet);
+            backdrop-filter: blur(35px) saturate(150%);
+            -webkit-backdrop-filter: blur(35px) saturate(150%);
+            border: 2px solid var(--glass-border);
+            border-radius: 28px; padding: 35px 30px; margin-bottom: 28px;
             text-align: left; position: relative; overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 30px 60px rgba(15, 30, 22, 0.1),
+                inset 0 2px 4px var(--glass-inner-glow),
+                inset 0 -2px 4px rgba(0,0,0,0.03);
         }
 
+        /* Reflejos de bicel de cristal de la foto */
         .liquid-glass-plate::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 50%);
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
             pointer-events: none;
         }
 
         .plate-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-        .plate-tag { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
-        .plate-title { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.3px; color: var(--text-main); }
-        .plate-price { font-size: 1.9rem; font-weight: 800; color: var(--text-main); }
-        .plate-price span { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); display: block; text-align: right; }
-        .plate-description { font-size: 1.05rem; line-height: 1.5; color: rgba(255,255,255,0.8); margin-bottom: 18px; }
+        .plate-tag { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; }
+        .plate-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.3px; }
+        .plate-price { font-size: 2rem; font-weight: 900; }
+        .plate-price span { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; text-align: right; }
         
+        .plate-description { font-size: 1.05rem; line-height: 1.5; opacity: 0.9; margin-bottom: 20px; }
         .plate-features { list-style: none; }
-        .plate-features li { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .plate-features li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--matcha-glow); }
+        .plate-features li { font-size: 0.95rem; font-weight: 600; opacity: 0.75; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .plate-features li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--grower-green); }
 
-        /* PLAN DESTACADO */
+        /* PLACA PREMIUM RECOMENDADA (ESTILO EXACTO CENTRAL) */
         .premium-plate {
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            background: linear-gradient(145deg, rgba(31,46,34,0.2) 0%, rgba(255,255,255,0.04) 100%);
-            box-shadow: 0 40px 80px rgba(110,136,104,0.12);
+            border: 2.5px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 40px 70px rgba(15, 30, 22, 0.15),
+                0 0 25px rgba(255,255,255,0.3),
+                inset 0 3px 6px #ffffff;
         }
 
         .premium-badge {
-            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 5px 12px; border-radius: 40px; font-size: 0.7rem; font-weight: 700;
-            letter-spacing: 1.5px; text-transform: uppercase; display: inline-block; margin-bottom: 18px;
+            background: var(--grower-green); color: #ffffff;
+            padding: 6px 14px; border-radius: 40px; font-size: 0.65rem; font-weight: 800;
+            letter-spacing: 1px; text-transform: uppercase; display: inline-block; margin-bottom: 18px;
         }
 
-        /* BOTÓN DE VIDEO DEMO */
+        /* BOTONES DE PORTAFOLIO EN CÁPSULA */
         .btn-glass-action {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 22px; border-radius: 100px; color: var(--text-main);
-            font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255, 255, 255, 0.4); border: 2px solid var(--glass-border);
+            padding: 10px 20px; border-radius: 100px; color: var(--grower-green);
+            font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.3s;
+            box-shadow: inset 0 1px 1px #ffffff;
         }
+        .btn-glass-action:hover { background: rgba(255, 255, 255, 0.7); transform: translateY(-1.5px); }
+        .btn-glass-action svg { width: 14px; height: 14px; fill: currentColor; }
 
-        .btn-glass-action:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-2px); }
-        .btn-glass-action svg { width: 16px; height: 16px; fill: currentColor; }
-
+        /* CTA FINAL */
         .btn-luxury-main {
-            display: inline-block; background: #FFFFFF; color: #050806;
-            padding: 20px 42px; border-radius: 100px; text-decoration: none;
-            font-weight: 700; font-size: 1.1rem; box-shadow: 0 20px 40px rgba(255,255,255,0.12);
-            transition: transform 0.3s; margin-top: 40px;
+            display: inline-block; background: var(--grower-green); color: #FFFFFF;
+            padding: 22px 46px; border-radius: 100px; text-decoration: none;
+            font-weight: 700; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.5px;
+            box-shadow: 0 20px 45px rgba(31,46,34,0.25); transition: transform 0.3s; margin-top: 30px;
         }
         .btn-luxury-main:hover { transform: translateY(-3px); }
 
-        /* MODAL DEL REPRODUCTOR */
+        /* MODAL DE VIDEO */
         .video-overlay-modal {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(5, 8, 6, 0.4); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            background: rgba(220, 230, 225, 0.4); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
             z-index: 999; display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: opacity 0.5s; padding: 24px;
         }
-
         .video-overlay-modal.active { opacity: 1; pointer-events: auto; }
+        
         .modal-glass-frame {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.3); border: 2px solid var(--glass-border);
             border-radius: 36px; width: 100%; max-width: 400px; height: 75vh;
-            position: relative; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            position: relative; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.15);
         }
-
         .modal-glass-frame video { width: 100%; height: 100%; object-fit: cover; }
         .close-modal-trigger {
-            position: absolute; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15); color: white; width: 40px; height: 40px;
+            position: absolute; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.6);
+            border: 2px solid var(--glass-border); color: var(--grower-green); width: 40px; height: 40px;
             border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 10;
             display: flex; justify-content: center; align-items: center;
         }
@@ -195,20 +249,28 @@
 </head>
 <body>
 
-    <div class="liquid-canvas">
-        <div class="liquid-blob blob-1"></div>
-        <div class="liquid-blob blob-2"></div>
-        <div class="liquid-blob blob-3"></div>
+    <div class="liquid-metal-canvas">
+        <div class="prism-wave wave-1"></div>
+        <div class="prism-wave wave-2"></div>
+        <div class="iridescent-gleam"></div>
     </div>
 
     <header class="brand-header">
-        <div class="brand-logo">GROWER <span>STUDIO</span></div>
+        <div class="brand-box">
+            <div class="brand-logo-text">GROWER<span>Filmmaking • Marketing • Agencia Creativa</span></div>
+        </div>
+        <div class="nav-capsules">
+            <div class="capsule">Inicio</div>
+            <div class="capsule">Servicios</div>
+            <div class="capsule">Portafolio</div>
+            <div class="capsule">Contacto</div>
+        </div>
     </header>
 
     <section>
-        <div class="reveal hero-content active">
-            <h1>Contenido de calidad.<br>Impulsar. Ser artistas.</h1>
-            <p>Diseñamos sistemas visuales premium y cinematográficos bajo la estética Liquid Glass para llevar tu marca gastronómica al más alto nivel de deseo digital.</p>
+        <div class="reveal hero-content active" style="margin-top: 60px;">
+            <h1>Nuestro Crecimiento,<br>Tu Éxito.</h1>
+            <p>Diseñamos sistemas visuales cinematográficos de alta gama bajo una arquitectura líquida para posicionar marcas gastronómicas de manera imponente.</p>
         </div>
     </section>
 
@@ -225,7 +287,7 @@
                     </div>
                     <div class="plate-price">$440</div>
                 </div>
-                <p class="plate-description">5 Fotografías ultra personalizadas y profesionales de tu producto estrella, servicio o la arquitectura de tu local.</p>
+                <p class="plate-description">5 Fotografías premium personalizadas de tus productos estrella, barras o espacios clave.</p>
             </div>
 
             <div class="liquid-glass-plate">
@@ -236,7 +298,7 @@
                     </div>
                     <div class="plate-price">$3,250</div>
                 </div>
-                <p class="plate-description">Optimización estética de perfiles, logos personalizados adaptados a cada red, Moodboard conceptual exclusivo y 2 semanas completas de administración base.</p>
+                <p class="plate-description">Optimización estética del perfil, diseño de logos adaptados a redes, Moodboard conceptual de marca y 2 semanas completas de administración base.</p>
             </div>
 
             <div class="liquid-glass-plate">
@@ -247,7 +309,7 @@
                     </div>
                     <div class="plate-price">$2,850</div>
                 </div>
-                <p class="plate-description">Filmmaking aéreo de alto impacto para lucir la fachada, entorno y posicionamiento de tu negocio con encuadres artísticos.</p>
+                <p class="plate-description">Filmmaking aéreo de alta fidelidad para destacar la fachada y ubicación del negocio desde ángulos artísticos.</p>
             </div>
         </div>
     </section>
@@ -265,13 +327,13 @@
                     </div>
                     <div class="plate-price">$5,000<span>/mes</span></div>
                 </div>
-                <p class="plate-description"><strong>Objetivo:</strong> Mantener la cuenta viva, consistente y sumamente atractiva de forma orgánica.</p>
+                <p class="plate-description"><strong>Objetivo:</strong> Mantener la cuenta viva, sumamente estética y constante en redes de forma orgánica.</p>
                 <ul class="plate-features" style="margin-bottom: 20px;">
                     <li>4 Reels de Alto Impacto Audiovisual</li>
-                    <li>8 Fotografías Premium para Feed / Historias</li>
+                    <li>8 Fotografías Estéticas de Producto</li>
                 </ul>
                 <button class="btn-glass-action" data-video="https://assets.mixkit.co/videos/preview/mixkit-pouring-hot-coffee-into-a-cup-42310-large.mp4">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Ver línea estética
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Ver línea de arte
                 </button>
             </div>
 
@@ -284,13 +346,13 @@
                     </div>
                     <div class="plate-price">$10,000<span>/mes</span></div>
                 </div>
-                <p class="plate-description"><strong>Objetivo:</strong> Hacer crecer la comunidad de forma orgánica y generar antojo diario masivo a través de Stories y Reels dinámicos.</p>
+                <p class="plate-description"><strong>Objetivo:</strong> Expandir el alcance de la comunidad y generar antojo masivo diario mediante Reels en tendencia e historias constantes.</p>
                 <ul class="plate-features" style="margin-bottom: 20px;">
-                    <li>12 Reels con Narrativa Visual y Tendencia</li>
-                    <li>12 Fotografías Estéticas de Producto</li>
+                    <li>12 Reels con Narrativa Visual Avanzada</li>
+                    <li>12 Fotografías Estéticas de Menú</li>
                 </ul>
                 <button class="btn-glass-action" data-video="https://assets.mixkit.co/videos/preview/mixkit-matcha-tea-powder-being-stirred-in-a-bowl-43093-large.mp4">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Ver dirección de arte
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Ver dirección estética
                 </button>
             </div>
 
@@ -302,7 +364,7 @@
                     </div>
                     <div class="plate-price">$15,000<span>/mes</span></div>
                 </div>
-                <p class="plate-description"><strong>Objetivo:</strong> Agresividad comercial total y posicionamiento definitivo. Perfecto para lanzamientos o temporadas fuertes.</p>
+                <p class="plate-description"><strong>Objetivo:</strong> Agresividad comercial absoluta y lanzamientos masivos. Ideal para temporadas fuertes del local.</p>
                 <ul class="plate-features">
                     <li>18+ Reels de Máxima Calidad Cinematográfica</li>
                     <li>20 Fotografías Profesionales de Menú</li>
@@ -317,18 +379,18 @@
                     </div>
                     <div class="plate-price">$20,000<span>/mes</span></div>
                 </div>
-                <p class="plate-description">Estrategias multimedia integradas para complejos comerciales, marcas corporativas o franquicias que buscan dominar ubicaciones regionales completos.</p>
+                <p class="plate-description">Campañas multimedia masivas integradas para complejos comerciales, franquicias o marcas que buscan dominar de forma regional.</p>
             </div>
 
             <div class="liquid-glass-plate">
                 <div class="plate-header">
                     <div>
                         <span class="plate-tag">ID: 8#</span>
-                        <h3 class="plate-title">Alcaldes / Campañas de Alto Nivel</h3>
+                        <h3 class="plate-title">Alcaldes / Proyectos de Alto Nivel</h3>
                     </div>
                     <div class="plate-price">$45,000<span>/mes</span></div>
                 </div>
-                <p class="plate-description">Máximo despliegue artístico e institucional. Producción masiva a nivel político o de marca personal de alto impacto con enfoque disruptivo.</p>
+                <p class="plate-description">Máximo despliegue artístico y de pauta. Producción masiva a nivel institucional o de marca personal premium con enfoque disruptivo.</p>
             </div>
 
             <center>
