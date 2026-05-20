@@ -8,10 +8,10 @@
         :root {
             --grower-dark: #1F2E22;
             --matcha-accent: #6E8868;
-            /* Nuevos valores para máxima transparencia de vidrio líquido */
-            --glass-sheet: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --glass-glow: rgba(255, 255, 255, 0.7);
+            /* Ultra-transparencia avanzada para efecto vidrio puro */
+            --glass-sheet: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-glow: rgba(255, 255, 255, 0.75);
         }
 
         * {
@@ -23,64 +23,38 @@
         }
 
         body {
-            background-color: #DCE5E1;
+            background-color: #CCD7D2;
             color: var(--grower-dark);
             overflow-x: hidden;
             width: 100%;
         }
 
-        /* --- PANTALLA DE INICIO (SPLASH) --- */
-        #splash-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #DCE5E1;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s;
-        }
-
-        .splash-logo {
-            text-align: center;
-            animation: logoPop 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .splash-logo h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-
-        @keyframes logoPop {
-            0% { transform: scale(0.8); opacity: 0; filter: blur(10px); }
-            100% { transform: scale(1); opacity: 1; filter: blur(0px); }
-        }
-
-        /* --- FONDO PRISMA LIQUID GLASS --- */
+        /* --- FONDO PRISMA LÍQUIDO ALTAMENTE NOTORIO --- */
         .prism-background {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background: linear-gradient(135deg, #E6ECE9 0%, #CCD7D2 100%);
+            background: linear-gradient(135deg, #B5C4BE 0%, #DCE5E1 50%, #9EB0A5 100%);
         }
 
+        /* Ondas iridiscentes con mayor contraste y color */
         .prism-light {
             position: absolute;
-            width: 170vw; height: 170vh;
+            width: 180vw; height: 180vh;
             background: radial-gradient(circle at 50% 50%, 
-                rgba(255,255,255,0.95) 0%, 
-                rgba(110,136,104,0.18) 25%, 
-                rgba(240,200,255,0.2) 50%, 
-                rgba(180,230,255,0.2) 75%,
-                rgba(255,255,255,0) 100%);
-            filter: blur(90px);
-            animation: prismRotate 28s infinite linear;
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(110, 136, 104, 0.25) 20%, 
+                rgba(255, 195, 210, 0.3) 45%, 
+                rgba(175, 220, 255, 0.3) 70%,
+                rgba(255, 255, 255, 0) 100%);
+            filter: blur(80px);
+            animation: prismRotate 22s infinite linear;
         }
 
         @keyframes prismRotate {
-            from { transform: translate(-35%, -35%) rotate(0deg); }
-            to { transform: translate(-35%, -35%) rotate(360deg); }
+            from { transform: translate(-40%, -40%) rotate(0deg); }
+            to { transform: translate(-40%, -40%) rotate(360deg); }
         }
 
         /* --- NAVEGACIÓN ESTILO HEY BANCO --- */
@@ -92,7 +66,7 @@
         }
 
         .nav-bar {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--glass-border);
@@ -111,10 +85,10 @@
             letter-spacing: 1px;
         }
 
-        /* --- CONTENEDOR CENTRAL RESPONSIVO --- */
+        /* --- CONTENEDOR CENTRAL RESPONSIVO (AJUSTE PC Y MÓVIL) --- */
         .main-container {
             width: 90%;
-            max-width: 900px; /* Expansión perfecta para pantallas de PC grandes */
+            max-width: 950px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -132,11 +106,11 @@
             text-align: center;
         }
 
-        /* --- SISTEMA POP-UP SEGURO --- */
+        /* --- SISTEMA POP-UP REVEAL --- */
         .popup-card {
             opacity: 0;
-            transform: scale(0.88) translateY(40px);
-            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.9) translateY(40px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -148,16 +122,16 @@
             transform: scale(1) translateY(0);
         }
 
-        /* --- RECUADROS ULTRA TRANSLÚCIDOS PRISMA GLASS --- */
+        /* --- RECUADROS LIQUID GLASS HIPER-TRANSLÚCIDOS --- */
         .glass-box {
             background: var(--glass-sheet);
-            backdrop-filter: blur(55px) saturate(220%);
-            -webkit-backdrop-filter: blur(55px) saturate(220%);
-            border: 2px solid var(--glass-border);
-            border-radius: 36px;
-            padding: clamp(30px, 5vw, 55px);
-            margin-bottom: 35px;
-            text-align: center; /* Todo perfectamente centrado */
+            backdrop-filter: blur(60px) saturate(240%);
+            -webkit-backdrop-filter: blur(60px) saturate(240%);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 38px;
+            padding: clamp(35px, 6vw, 60px);
+            margin-bottom: 40px;
+            text-align: center;
             width: 100%;
             position: relative;
             overflow: hidden;
@@ -166,42 +140,40 @@
             align-items: center;
             justify-content: center;
             box-shadow: 
-                0 30px 60px rgba(15, 30, 22, 0.05), 
-                inset 0 4px 10px var(--glass-glow),
-                inset 0 -2px 4px rgba(0,0,0,0.01);
+                0 35px 70px rgba(15, 30, 22, 0.04), 
+                inset 0 4px 14px var(--glass-glow);
         }
 
-        /* Capa interna con refracción de luz Prisma */
+        /* Refracción interna espectral sutil */
         .glass-box::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 0, 100, 0.03) 0%, rgba(0, 255, 100, 0.03) 50%, rgba(0, 100, 255, 0.03) 100%);
+            background: linear-gradient(135deg, rgba(255, 0, 120, 0.02) 0%, rgba(0, 255, 120, 0.02) 50%, rgba(0, 120, 255, 0.02) 100%);
             pointer-events: none;
-            border-radius: 36px;
+            border-radius: 38px;
         }
 
-        /* --- TITULARES FLUIDOS (PC GRANDE / CELULAR PERFECTO) --- */
+        /* --- TIPOGRAFÍA DE LUJO LIMPIA --- */
         .hero-title {
-            font-size: clamp(2.8rem, 7vw, 5rem);
+            font-size: clamp(3rem, 8vw, 5.5rem);
             font-weight: 900;
             line-height: 0.95;
             text-transform: uppercase;
             letter-spacing: -2px;
             margin-bottom: 20px;
-            color: var(--grower-dark);
         }
 
         .hero-subtitle {
-            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            font-size: clamp(1.5rem, 4vw, 2.4rem);
             font-weight: 600;
             letter-spacing: -0.5px;
-            opacity: 0.85;
+            opacity: 0.9;
             margin-bottom: 30px;
         }
 
         .hero-desc {
-            font-size: clamp(0.75rem, 2vw, 0.95rem);
+            font-size: clamp(0.75rem, 1.8vw, 0.95rem);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 4px;
@@ -218,14 +190,14 @@
         }
 
         .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-size: clamp(2rem, 4.5vw, 2.8rem);
             font-weight: 800;
             letter-spacing: -0.5px;
-            margin-bottom: 45px;
+            margin-bottom: 50px;
             text-transform: uppercase;
         }
 
-        /* --- COMPONENTES INTERNOS --- */
+        /* --- COMPONENTES INTERNOS CENTRADOS --- */
         .tag {
             background: var(--grower-dark);
             color: white;
@@ -234,45 +206,47 @@
             font-size: 0.65rem;
             font-weight: 800;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             display: inline-block;
+            letter-spacing: 0.5px;
         }
 
         .price {
-            font-size: clamp(2.2rem, 4vw, 2.8rem);
+            font-size: clamp(2.4rem, 4.5vw, 3rem);
             font-weight: 900;
             letter-spacing: -1px;
-            margin-bottom: 10px;
-            color: var(--grower-dark);
+            margin-bottom: 12px;
         }
 
         .card-title {
-            font-size: clamp(1.3rem, 3vw, 1.7rem);
+            font-size: clamp(1.35rem, 3vw, 1.75rem);
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
         }
 
         .card-desc {
             font-size: clamp(1rem, 2vw, 1.15rem);
-            opacity: 0.75;
+            opacity: 0.8;
             line-height: 1.5;
-            max-width: 580px;
+            max-width: 600px;
         }
 
-        /* Recuadro destacado */
+        /* Recuadro destacado de mayor presencia */
         .premium-box {
-            background: rgba(255, 255, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.35);
+            border-color: rgba(255, 255, 255, 0.85);
             box-shadow: 
-                0 40px 70px rgba(15, 30, 22, 0.08), 
-                inset 0 4px 10px #ffffff;
+                0 45px 80px rgba(15, 30, 22, 0.07), 
+                inset 0 4px 12px #ffffff;
         }
 
-        /* BOTÓN DE ACCIÓN CENTRADO */
+        /* CTA FINAL HEY BANCO STYLE */
         .btn-luxury {
             background: var(--grower-dark);
             color: white;
-            padding: 20px 55px;
+            padding: 22px 60px;
             border-radius: 100px;
             text-decoration: none;
             font-weight: 800;
@@ -281,7 +255,7 @@
             letter-spacing: 0.5px;
             display: inline-block;
             margin-top: 20px;
-            box-shadow: 0 20px 40px rgba(31,46,34,0.2);
+            box-shadow: 0 20px 45px rgba(31,46,34,0.25);
             transition: transform 0.2s;
         }
         .btn-luxury:active { transform: scale(0.96); }
@@ -289,13 +263,6 @@
     </style>
 </head>
 <body>
-
-    <div id="splash-screen">
-        <div class="splash-logo">
-            <h1>GROWER</h1>
-            <p style="letter-spacing: 4px; font-weight: 400; opacity: 0.5; font-size: 0.8rem; text-transform: uppercase;">Company</p>
-        </div>
-    </div>
 
     <div class="prism-background">
         <div class="prism-light"></div>
@@ -325,17 +292,24 @@
                 <h2 class="section-title">Paquetes Iniciación</h2>
 
                 <div class="glass-box">
-                    <span class="tag">Iniciación</span>
+                    <span class="tag">ID: 1#</span>
                     <div class="price">$440</div>
-                    <h3 class="card-title">Foto fija de alta gama</h3>
-                    <p class="card-desc">5 Fotografías premium personalizadas de tu producto estrella, servicio o local con edición de autor.</p>
+                    <h3 class="card-title">Sesion de fotos</h3>
+                    <p class="card-desc">5 Fotos personalizadas profesionales de tu producto, servicio o local.</p>
                 </div>
 
                 <div class="glass-box">
-                    <span class="tag">Branding</span>
+                    <span class="tag">ID: 2#</span>
                     <div class="price">$3,250</div>
-                    <h3 class="card-title">Identity Setup</h3>
-                    <p class="card-desc">Diseño conceptual y rebranding estratégico de redes sociales, adaptación de logotipos y 2 semanas completas de administración base.</p>
+                    <h3 class="card-title">Identity Setup y Rebranding</h3>
+                    <p class="card-desc">Paquete basico de creacion de cuentas y logos personalizados en cada red social. 2 semanas de administracion, contenido es aparte, incluye moodboard.</p>
+                </div>
+
+                <div class="glass-box">
+                    <span class="tag">ID: 3#</span>
+                    <div class="price">$2,850</div>
+                    <h3 class="card-title">Tomas de dron</h3>
+                    <p class="card-desc">Producción de video aéreo de alta fidelidad para destacar de forma imponente la locación de tu negocio.</p>
                 </div>
             </div>
         </section>
@@ -345,18 +319,25 @@
                 <div class="section-meta">Fase 02</div>
                 <h2 class="section-title">Estrategias Mensuales</h2>
 
+                <div class="glass-box">
+                    <span class="tag">ID: 4#</span>
+                    <div class="price">$5,000</div>
+                    <h3 class="card-title">Plan Esencial</h3>
+                    <p class="card-desc">4 Reels + 8 Fotos. Diseñado específicamente para mantener la cuenta viva.</p>
+                </div>
+
                 <div class="glass-box premium-box">
-                    <span class="tag" style="background: var(--matcha-accent);">RECOMENDADO BRUNCH & MATCHAS</span>
+                    <span class="tag" style="background: var(--matcha-accent);">ID: 5# • RECOMENDADO BRUNCH & MATCHAS</span>
                     <div class="price">$10,000</div>
                     <h3 class="card-title">Plan Crecimiento</h3>
-                    <p class="card-desc">12 Reels con narrativa visual avanzada y tendencias más 12 Fotografías estéticas de menú. Diseñado exclusivamente para expandir la comunidad y generar antojo diario.</p>
+                    <p class="card-desc">12 Reels + 12 Fotos. El sistema ideal enfocado en crecer comunidad y antojar diario en Stories.</p>
                 </div>
 
                 <div class="glass-box">
-                    <span class="tag">Corporativo</span>
-                    <div class="price">$20,000</div>
-                    <h3 class="card-title">Plazas Comerciales</h3>
-                    <p class="card-desc">Estrategias multimedia integradas de alto impacto para complejos comerciales o franquicias que buscan consolidación regional imponente.</p>
+                    <span class="tag">ID: 6#</span>
+                    <div class="price">$15,000</div>
+                    <h3 class="card-title">Plan Aceleración</h3>
+                    <p class="card-desc">18+ Reels + 20 Fotos. Enfocado en una estrategia de agresividad comercial y lanzamientos.</p>
                 </div>
 
                 <a href="https://wa.me/TU_TELEFONO" class="btn-luxury">Agendar Lanzamiento</a>
@@ -366,17 +347,7 @@
     </div>
 
     <script>
-        // Apagado controlado del Splash inicial
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('splash-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('splash-screen').style.visibility = 'hidden';
-                }, 800);
-            }, 1800);
-        });
-
-        // Configuración del Observador Inteligente para Pop-Ups (PC y Celular)
+        // Observador de Scroll para efecto Pop-Up en PC y iPhone de forma síncrona
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
