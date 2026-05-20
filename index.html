@@ -6,10 +6,11 @@
     <title>Propuesta de Marketing Exclusiva</title>
     <style>
         :root {
-            --bg-blur: rgba(255, 255, 255, 0.08);
-            --border-white: rgba(255, 255, 255, 0.15);
-            --matcha: #94A984;
-            --accent: #E1B382;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 60%);
+            --text-light: #FFFFFF;
+            --matcha-glow: #A3B899;
         }
 
         * {
@@ -19,33 +20,89 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
+        /* FONDO LÍQUIDO EN MOVIMIENTO */
         body {
-            background: linear-gradient(rgba(20, 25, 20, 0.8), rgba(15, 20, 15, 0.95)), 
-                        url('https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #FFFFFF;
+            background: #0D110E;
+            color: var(--text-light);
             overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Lámpara de lava / Manchas orgánicas de fondo */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.6;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            background: cubic-bezier(0.1, 0.8, 0.3, 1);
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            animation: float 20s infinite alternate;
+        }
+
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: #4E6147; /* Verde Matcha Profundo */
+            animation-duration: 25s;
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 70vw;
+            height: 70vw;
+            background: #D1A170; /* Tono Café Tostado */
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            top: 40%;
+            left: 30%;
+            width: 40vw;
+            height: 40vw;
+            background: #2E402B;
+            animation-duration: 18s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+            50% { transform: translate(40px, 60px) scale(1.1) rotate(180deg); }
+            100% { transform: translate(-20px, -40px) scale(0.9) rotate(360deg); }
+        }
+
+        /* CONTENEDORES DE PANTALLA COMPLETA */
         section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 60px 20px;
+            padding: 60px 24px;
             text-align: center;
+            position: relative;
         }
 
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.215, 0.610, 0.355, 1);
             width: 100%;
-            max-width: 650px;
+            max-width: 620px;
         }
 
         .reveal.active {
@@ -53,133 +110,165 @@
             transform: translateY(0);
         }
 
-        /* DISEÑO DE VIDRIO ESTILO APPLE (GLASSMORPHISM) */
-        .glass-card {
-            background: var(--bg-blur);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid var(--border-white);
-            border-radius: 28px; /* Bordes redondeados premium */
-            padding: 30px 25px;
-            margin-bottom: 25px;
+        /* TARJETAS LIQUID GLASS */
+        .liquid-glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px; /* Bordes orgánicos fluidos */
+            padding: 35px 28px;
+            margin-bottom: 30px;
             text-align: left;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 
+                        inset 0 1px 0 rgba(255,255,255,0.2);
         }
 
-        /* SECCIÓN 1: INICIO */
+        /* Reflejo brillante de cristal líquido */
+        .liquid-glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: var(--glass-shine);
+            pointer-events: none;
+        }
+
+        /* SECCIÓN 1: TITULAR */
         .hero h1 {
-            font-size: 2.5rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            font-size: 2.6rem;
+            line-height: 1.15;
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #C2CFC0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 1.15rem;
-            opacity: 0.85;
-            line-height: 1.5;
-            max-width: 500px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            max-width: 520px;
         }
 
-        /* SECCIÓN 2: PAQUETES MENSUALES */
+        /* DISEÑO DE CONTENIDO EN TARJETAS */
         .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin-bottom: 8px;
             letter-spacing: -0.5px;
         }
 
         .section-subtitle {
             font-size: 1rem;
-            opacity: 0.6;
-            margin-bottom: 40px;
+            opacity: 0.5;
+            margin-bottom: 45px;
         }
 
-        .pack-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
-        .pack-title {
-            font-size: 1.4rem;
+        .card-title {
+            font-size: 1.35rem;
             font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .price {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 800;
-            color: var(--matcha);
+            color: var(--matcha-glow);
+            text-shadow: 0 0 15px rgba(163, 184, 153, 0.3);
         }
 
         .price span {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 400;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
         }
 
-        .pack-desc {
-            font-size: 1rem;
-            opacity: 0.9;
+        .card-desc {
+            font-size: 1.05rem;
+            opacity: 0.85;
             margin-bottom: 15px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .features-list {
             list-style: none;
-            font-size: 0.9rem;
-            opacity: 0.7;
+            font-size: 0.95rem;
+            opacity: 0.65;
         }
 
         .features-list li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            padding-left: 5px;
         }
 
+        /* RECOMENDADO / DESTACADO */
         .destacado {
-            border: 1.5px solid var(--matcha);
-            background: rgba(148, 169, 132, 0.08);
+            border: 1.5px solid rgba(163, 184, 153, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 60px rgba(163, 184, 153, 0.15), 
+                        inset 0 1px 0 rgba(255,255,255,0.3);
         }
 
         .badge {
-            background: var(--matcha);
-            color: #141914;
-            padding: 4px 12px;
-            border-radius: 20px;
+            background: #FFFFFF;
+            color: #0D110E;
+            padding: 5px 14px;
+            border-radius: 30px;
             font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 12px;
             display: inline-block;
+            letter-spacing: 0.5px;
         }
 
-        /* BOTÓN DE ACCIÓN */
+        /* BOTÓN DE ACCIÓN FLUIDO */
         .btn {
             display: block;
             background: #FFFFFF;
-            color: #141914;
-            padding: 16px 32px;
-            border-radius: 50px;
+            color: #0D110E;
+            padding: 18px 36px;
+            border-radius: 100px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
+            font-weight: 700;
+            font-size: 1.1rem;
             text-align: center;
-            margin: 30px auto 0 auto;
-            max-width: 300px;
-            transition: background 0.3s;
+            margin: 40px auto 0 auto;
+            max-width: 320px;
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s;
         }
 
         .btn:active {
-            background: rgba(255,255,255,0.8);
+            transform: scale(0.97);
         }
     </style>
 </head>
 <body>
 
+    <div class="liquid-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
     <section class="hero">
         <div>
             <h1>El Sistema Visual para Llenar Mesas</h1>
-            <p>Fusionamos Filmmaking premium de alta estética gastronómica con pauta inteligente para transformar antojo digital en clientes reales.</p>
+            <p>Fusionamos Filmmaking premium de alta estética gastronómica con pauta inteligente para transformar antojo digital en mesas reservadas.</p>
         </div>
     </section>
 
@@ -188,28 +277,28 @@
             <h2 class="section-title">Servicios de Iniciación</h2>
             <p class="section-subtitle">Para arrancar con todo el impacto visual</p>
             
-            <div class="glass-card">
-                <div class="pack-header">
-                    <span class="pack-title">📸 Sesión de Fotos Profesional</span>
+            <div class="liquid-glass-card">
+                <div class="card-header">
+                    <span class="card-title">📸 Sesión de Fotos Profesional</span>
                     <span class="price">$440</span>
                 </div>
-                <p class="pack-desc">5 Fotografías personalizadas de alta calidad de tu producto estrella, servicio o rincones del local.</p>
+                <p class="card-desc">5 Fotografías personalizadas de alta fidelidad de tus productos estrella, barras o espacios clave.</p>
             </div>
 
-            <div class="glass-card">
-                <div class="pack-header">
-                    <span class="pack-title">🛠️ Setup de Identidad Digital</span>
+            <div class="liquid-glass-card">
+                <div class="card-header">
+                    <span class="card-title">🛠️ Setup de Identidad Digital</span>
                     <span class="price">$3,250</span>
                 </div>
-                <p class="pack-desc">Paquete básico de creación y optimización estética de tus cuentas, logos adaptados a redes, moodboard conceptual y 2 semanas completas de administración inicial.</p>
+                <p class="card-desc">Construcción estética del perfil, diseño de logos adaptados, moodboard conceptual de marca y 2 semanas completas de administración base.</p>
             </div>
 
-            <div class="glass-card">
-                <div class="pack-header">
-                    <span class="pack-title">🛸 Tomas de Dron Cinematográficas</span>
+            <div class="liquid-glass-card">
+                <div class="card-header">
+                    <span class="card-title">🛸 Tomas de Dron Cinematográficas</span>
                     <span class="price">$2,850</span>
                 </div>
-                <p class="pack-desc">Perspectivas aéreas de alto impacto para lucir la fachada, ubicación y la escala de tu negocio desde un ángulo premium.</p>
+                <p class="pack-desc">Tomas aéreas espectaculares para resaltar la arquitectura y la ubicación exclusiva de tu cafetería.</p>
             </div>
         </div>
     </section>
@@ -219,39 +308,39 @@
             <h2 class="section-title">Estrategias Mensuales</h2>
             <p class="section-subtitle">Sistemas recurrentes de atracción y ventas</p>
             
-            <div class="glass-card">
-                <div class="pack-header">
-                    <span class="pack-title">Plan Esencial</span>
+            <div class="liquid-glass-card">
+                <div class="card-header">
+                    <span class="card-title">Plan Esencial</span>
                     <span class="price">$5,000<span>/mes</span></span>
                 </div>
-                <p class="pack-desc"><strong>Objetivo:</strong> Mantener la cuenta viva, estética y constante.</p>
+                <p class="card-desc"><strong>Objetivo:</strong> Mantener la cuenta con un feed impecable, activo y sumamente estético.</p>
                 <ul class="features-list">
                     <li>• 4 Reels de Alto Impacto Gastronómico</li>
                     <li>• 8 Fotografías Premium para Feed / Historias</li>
                 </ul>
             </div>
 
-            <div class="glass-card destacado">
-                <div class="badge">RECOMENDADO PARA BRUNCH & MATCHAS</div>
-                <div class="pack-header">
-                    <span class="pack-title">Plan Crecimiento</span>
+            <div class="liquid-glass-card destacado">
+                <div class="badge">RECOMENDADO BRUNCH & MATCHAS</div>
+                <div class="card-header">
+                    <span class="card-title">Plan Crecimiento</span>
                     <span class="price">$10,000<span>/mes</span></span>
                 </div>
-                <p class="pack-desc"><strong>Objetivo:</strong> Expandir la comunidad y generar antojo diario a través de Historias y Reels constantes.</p>
+                <p class="card-desc"><strong>Objetivo:</strong> Expandir el alcance del negocio y generar antojo masivo de manera diaria mediante dinamismo.</p>
                 <ul class="features-list">
-                    <li>• 12 Reels con Narrativa Visual Dinámica</li>
+                    <li>• 12 Reels con Narrativa Visual y Tendencias</li>
                     <li>• 12 Fotografías Estéticas de Producto</li>
                 </ul>
             </div>
 
-            <div class="glass-card">
-                <div class="pack-header">
-                    <span class="pack-title">Plan Aceleración</span>
+            <div class="liquid-glass-card">
+                <div class="card-header">
+                    <span class="card-title">Plan Aceleración</span>
                     <span class="price">$15,000<span>/mes</span></span>
                 </div>
-                <p class="pack-desc"><strong>Objetivo:</strong> Agresividad comercial total, lanzamientos de nuevos platillos y campañas masivas.</p>
+                <p class="card-desc"><strong>Objetivo:</strong> Dominación total del mercado local, ideal para lanzamientos de menú estacionales o campañas agresivas.</p>
                 <ul class="features-list">
-                    <li>• 18 Reels de Máxima Calidad + Tendencias</li>
+                    <li>• 18 Reels de Máxima Calidad Cinematográfica</li>
                     <li>• 20 Fotografías Profesionales de Menú</li>
                 </ul>
             </div>
@@ -275,4 +364,4 @@
         window.addEventListener('load', checkScroll);
     </script>
 </body>
-</html> 
+</html>
