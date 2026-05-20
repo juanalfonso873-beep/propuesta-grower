@@ -8,7 +8,6 @@
         :root {
             --grower-dark: #1F2E22;
             --matcha-accent: #6E8868;
-            /* Ultra-transparencia avanzada para efecto vidrio puro */
             --glass-sheet: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.6);
             --glass-glow: rgba(255, 255, 255, 0.75);
@@ -38,7 +37,6 @@
             background: linear-gradient(135deg, #B5C4BE 0%, #DCE5E1 50%, #9EB0A5 100%);
         }
 
-        /* Ondas iridiscentes con mayor contraste y color */
         .prism-light {
             position: absolute;
             width: 180vw; height: 180vh;
@@ -83,9 +81,12 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: opacity 0.3s;
         }
+        
+        .nav-bar a:hover { opacity: 0.6; }
 
-        /* --- CONTENEDOR CENTRAL RESPONSIVO (AJUSTE PC Y MÓVIL) --- */
+        /* --- CONTENEDOR CENTRAL RESPONSIVO --- */
         .main-container {
             width: 90%;
             max-width: 950px;
@@ -106,7 +107,7 @@
             text-align: center;
         }
 
-        /* --- SISTEMA POP-UP REVEAL LIGERO --- */
+        /* --- SISTEMA POP-UP REVEAL --- */
         .popup-card {
             opacity: 0;
             transform: translateY(30px);
@@ -144,7 +145,6 @@
                 inset 0 4px 14px var(--glass-glow);
         }
 
-        /* Refracción interna espectral sutil */
         .glass-box::before {
             content: '';
             position: absolute;
@@ -178,15 +178,6 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             opacity: 0.6;
-        }
-
-        .section-meta {
-            font-size: 0.8rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.5;
-            margin-bottom: 12px;
         }
 
         .section-title {
@@ -233,7 +224,6 @@
             max-width: 600px;
         }
 
-        /* Recuadro destacado de mayor presencia */
         .premium-box {
             background: rgba(255, 255, 255, 0.25);
             border-color: rgba(255, 255, 255, 0.85);
@@ -242,13 +232,14 @@
                 inset 0 4px 12px #ffffff;
         }
 
-        /* CTA FINAL HEY BANCO STYLE */
+        /* BOTÓN CTA PRINCIPAL */
         .btn-luxury {
             background: var(--grower-dark);
             color: white;
             padding: 22px 60px;
             border-radius: 100px;
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
             font-weight: 800;
             text-transform: uppercase;
             font-size: 0.9rem;
@@ -260,6 +251,98 @@
         }
         .btn-luxury:active { transform: scale(0.96); }
 
+        /* --- MODAL DE SELECCIÓN DE PLANES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(204, 215, 210, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-glass {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.1), inset 0 2px 10px #ffffff;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-glass {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: rgba(255,255,255,0.5);
+            border: none;
+            border-radius: 50%;
+            width: 35px; height: 35px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--grower-dark);
+        }
+
+        .modal-glass h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .plan-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .plan-options label {
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.8);
+            padding: 15px 20px;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+
+        .plan-options label:hover {
+            background: rgba(255,255,255,0.8);
+        }
+
+        /* Checkbox personalizado */
+        .plan-options input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--grower-dark);
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -270,15 +353,15 @@
 
     <nav>
         <div class="nav-bar">
-            <a href="#">Inicio</a>
-            <a href="#">Servicios</a>
-            <a href="#">Planes</a>
+            <a href="#inicio">Inicio</a>
+            <a href="#portafolio">Portafolio</a>
+            <a href="#planes">Planes</a>
         </div>
     </nav>
 
     <div class="main-container">
 
-        <section>
+        <section id="inicio">
             <div class="popup-card visible">
                 <h1 class="hero-title">GROWER COMPANY</h1>
                 <h2 class="hero-subtitle">Crecemos contigo</h2>
@@ -286,20 +369,19 @@
             </div>
         </section>
 
-        <section id="servicios">
+        <section id="portafolio">
             <div class="popup-card reveal-item">
-                <div class="section-meta">Fase 01</div>
                 <h2 class="section-title">CONÓCENOS</h2>
 
                 <div class="glass-box">
-                    <span class="tag">Iniciación</span>
+                    <span class="tag">Para empezar</span>
                     <div class="price">$440</div>
                     <h3 class="card-title">Paquete Iniciación</h3>
                     <p class="card-desc">5 Fotos personalizadas profesionales de tu producto, servicio o local.</p>
                 </div>
 
                 <div class="glass-box">
-                    <span class="tag">Branding</span>
+                    <span class="tag">Renovación Total</span>
                     <div class="price">$3,250</div>
                     <h3 class="card-title">Identity Setup y Rebranding</h3>
                     <p class="card-desc">Paquete básico de creación de cuentas y logos personalizados en cada red social. 2 semanas de administración, el contenido es aparte (incluye moodboard).</p>
@@ -307,36 +389,52 @@
             </div>
         </section>
 
-        <section>
+        <section id="planes">
             <div class="popup-card reveal-item">
-                <div class="section-meta">Fase 02</div>
                 <h2 class="section-title">Estrategias Mensuales</h2>
 
                 <div class="glass-box">
-                    <span class="tag">Plan Básico</span>
+                    <span class="tag">Mantenimiento</span>
                     <div class="price">$5,000</div>
                     <h3 class="card-title">Plan Básico</h3>
                     <p class="card-desc">4 Reels + 8 Fotos. Diseñado específicamente para mantener la cuenta viva.</p>
                 </div>
 
                 <div class="glass-box premium-box">
-                    <span class="tag" style="background: var(--matcha-accent);">RECOMENDADO BRUNCH & MATCHAS</span>
+                    <span class="tag" style="background: var(--matcha-accent);">RECOMENDADO</span>
                     <div class="price">$10,000</div>
                     <h3 class="card-title">Plan Crecimiento</h3>
                     <p class="card-desc">12 Reels + 12 Fotos. El sistema ideal enfocado en crecer comunidad y antojar diario en Stories.</p>
                 </div>
 
                 <div class="glass-box">
-                    <span class="tag">Plan Comercial</span>
+                    <span class="tag">Alto Impacto</span>
                     <div class="price">$20,000</div>
                     <h3 class="card-title">Plan Comercial</h3>
                     <p class="card-desc">Estrategias multimedia integradas de alto impacto para plazas comerciales, corporativos o franquicias que buscan consolidación regional imponente.</p>
                 </div>
 
-                <a href="https://wa.me/TU_TELEFONO" class="btn-luxury">Agendar Lanzamiento</a>
+                <button id="open-modal-btn" class="btn-luxury">Agendar Lanzamiento</button>
             </div>
         </section>
 
+    </div>
+
+    <div id="wa-modal" class="modal-overlay">
+        <div class="modal-glass">
+            <button id="close-modal-btn" class="close-modal">✕</button>
+            <h3>Escoge tu plan</h3>
+            <div class="plan-options">
+                <label><input type="checkbox" value="Paquete Iniciación ($440)"> Paquete Iniciación</label>
+                <label><input type="checkbox" value="Identity Setup y Rebranding ($3,250)"> Identity Setup</label>
+                <label><input type="checkbox" value="Plan Básico Mensual ($5,000)"> Plan Básico</label>
+                <label><input type="checkbox" value="Plan Crecimiento Mensual ($10,000)"> Plan Crecimiento</label>
+                <label><input type="checkbox" value="Plan Comercial Mensual ($20,000)"> Plan Comercial</label>
+            </div>
+            <center>
+                <button id="send-wa-btn" class="btn-luxury" style="padding: 15px 40px; margin-top: 0;">Enviar a WhatsApp</button>
+            </center>
+        </div>
     </div>
 
     <script>
@@ -356,6 +454,56 @@
         }, { threshold: 0.12 });
 
         document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+
+        // LOGICA DEL MODAL DE WHATSAPP
+        const modal = document.getElementById('wa-modal');
+        const openBtn = document.getElementById('open-modal-btn');
+        const closeBtn = document.getElementById('close-modal-btn');
+        const sendWaBtn = document.getElementById('send-wa-btn');
+
+        // Abrir Modal
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        // Cerrar Modal
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Cerrar haciendo clic afuera del modal
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Enviar a WhatsApp
+        sendWaBtn.addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.plan-options input[type="checkbox"]:checked');
+            let selectedPlans = [];
+            
+            checkboxes.forEach((cb) => {
+                selectedPlans.push(cb.value);
+            });
+
+            // Numero de telefono de México (Código 52)
+            const phoneNumber = "528134480481"; 
+            let message = "";
+
+            if (selectedPlans.length > 0) {
+                message = `¡Hola GROWER COMPANY! Me interesa cotizar y agendar un lanzamiento. He seleccionado los siguientes planes:\n\n- ${selectedPlans.join('\n- ')}\n\n¿Podrían darme más información?`;
+            } else {
+                message = `¡Hola GROWER COMPANY! Me interesa conocer más sobre sus servicios para agendar un lanzamiento.`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const waLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            window.open(waLink, '_blank');
+            modal.classList.remove('active'); // Opcional: cierra el modal después de redirigir
+        });
+
     </script>
 </body>
 </html>
