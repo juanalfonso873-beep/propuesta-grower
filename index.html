@@ -6,9 +6,9 @@
     <title>Propuesta de Marketing Exclusiva</title>
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 60%);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
             --text-light: #FFFFFF;
             --matcha-glow: #A3B899;
         }
@@ -20,9 +20,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* FONDO LÍQUIDO EN MOVIMIENTO */
         body {
-            background: #0D110E;
+            background: #090D0A;
             color: var(--text-light);
             overflow-x: hidden;
             min-height: 100vh;
@@ -30,7 +29,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Lámpara de lava / Manchas orgánicas de fondo */
+        /* FONDO LÍQUIDO */
         .liquid-bg {
             position: fixed;
             top: 0;
@@ -38,54 +37,28 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            filter: blur(80px);
-            opacity: 0.6;
+            filter: blur(90px);
+            opacity: 0.5;
             overflow: hidden;
         }
 
         .blob {
             position: absolute;
-            background: cubic-bezier(0.1, 0.8, 0.3, 1);
             border-radius: 50%;
             mix-blend-mode: screen;
-            animation: float 20s infinite alternate;
+            animation: float 22s infinite alternate ease-in-out;
         }
 
-        .blob-1 {
-            top: -10%;
-            left: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: #4E6147; /* Verde Matcha Profundo */
-            animation-duration: 25s;
-        }
-
-        .blob-2 {
-            bottom: -10%;
-            right: -10%;
-            width: 70vw;
-            height: 70vw;
-            background: #D1A170; /* Tono Café Tostado */
-            animation-duration: 30s;
-            animation-delay: -5s;
-        }
-
-        .blob-3 {
-            top: 40%;
-            left: 30%;
-            width: 40vw;
-            height: 40vw;
-            background: #2E402B;
-            animation-duration: 18s;
-        }
+        .blob-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: #4E6147; }
+        .blob-2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: #D1A170; animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 30%; width: 45vw; height: 45vw; background: #2E402B; animation-duration: 15s; }
 
         @keyframes float {
             0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-            50% { transform: translate(40px, 60px) scale(1.1) rotate(180deg); }
-            100% { transform: translate(-20px, -40px) scale(0.9) rotate(360deg); }
+            50% { transform: translate(30px, 50px) scale(1.05) rotate(180deg); }
+            100% { transform: translate(-10px, -30px) scale(0.95) rotate(360deg); }
         }
 
-        /* CONTENEDORES DE PANTALLA COMPLETA */
         section {
             min-height: 100vh;
             display: flex;
@@ -94,149 +67,96 @@
             align-items: center;
             padding: 60px 24px;
             text-align: center;
-            position: relative;
         }
 
+        /* ANIMACIÓN TIPO POP-UP (REVEAL) */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.215, 0.610, 0.355, 1);
+            transform: scale(0.92) translateY(40px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efecto rebote/pop up */
             width: 100%;
             max-width: 620px;
         }
 
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1) translateY(0);
         }
 
         /* TARJETAS LIQUID GLASS */
         .liquid-glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(35px) saturate(200%);
-            -webkit-backdrop-filter: blur(35px) saturate(200%);
+            backdrop-filter: blur(40px) saturate(220%);
+            -webkit-backdrop-filter: blur(40px) saturate(220%);
             border: 1px solid var(--glass-border);
-            border-radius: 32px; /* Bordes orgánicos fluidos */
+            border-radius: 32px;
             padding: 35px 28px;
             margin-bottom: 30px;
             text-align: left;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 
-                        inset 0 1px 0 rgba(255,255,255,0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.15);
         }
 
-        /* Reflejo brillante de cristal líquido */
         .liquid-glass-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
+            top: 0; left: 0; right: 0; height: 100%;
             background: var(--glass-shine);
             pointer-events: none;
         }
 
-        /* SECCIÓN 1: TITULAR */
         .hero h1 {
             font-size: 2.6rem;
             line-height: 1.15;
             margin-bottom: 25px;
             font-weight: 800;
-            letter-spacing: -0.7px;
             background: linear-gradient(180deg, #FFFFFF 0%, #C2CFC0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            line-height: 1.6;
-            max-width: 520px;
-        }
-
-        /* DISEÑO DE CONTENIDO EN TARJETAS */
-        .section-title {
-            font-size: 2.1rem;
-            font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .section-subtitle {
-            font-size: 1rem;
-            opacity: 0.5;
-            margin-bottom: 45px;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-        }
-
-        .card-title {
-            font-size: 1.35rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
-
+        .hero p { font-size: 1.2rem; opacity: 0.8; line-height: 1.6; max-width: 520px; }
+        .section-title { font-size: 2.1rem; font-weight: 800; margin-bottom: 8px; }
+        .section-subtitle { font-size: 1rem; opacity: 0.5; margin-bottom: 45px; }
+        
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+        .card-title { font-size: 1.35rem; font-weight: 700; }
+        
         .price {
             font-size: 1.9rem;
             font-weight: 800;
             color: var(--matcha-glow);
-            text-shadow: 0 0 15px rgba(163, 184, 153, 0.3);
+            text-shadow: 0 0 15px rgba(163, 184, 153, 0.2);
         }
+        .price span { font-size: 0.95rem; font-weight: 400; color: rgba(255,255,255,0.5); }
+        .card-desc { font-size: 1.05rem; opacity: 0.85; margin-bottom: 15px; line-height: 1.5; }
+        
+        .features-list { list-style: none; font-size: 0.95rem; opacity: 0.65; margin-bottom: 20px; }
+        .features-list li { margin-bottom: 10px; }
 
-        .price span {
-            font-size: 0.95rem;
-            font-weight: 400;
-            color: rgba(255,255,255,0.5);
-        }
+        .destacado { border: 1.5px solid rgba(163, 184, 153, 0.5); background: rgba(255, 255, 255, 0.07); }
+        .badge { background: #FFFFFF; color: #0D110E; padding: 5px 14px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; display: inline-block; }
 
-        .card-desc {
-            font-size: 1.05rem;
-            opacity: 0.85;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .features-list {
-            list-style: none;
-            font-size: 0.95rem;
-            opacity: 0.65;
-        }
-
-        .features-list li {
-            margin-bottom: 10px;
-            padding-left: 5px;
-        }
-
-        /* RECOMENDADO / DESTACADO */
-        .destacado {
-            border: 1.5px solid rgba(163, 184, 153, 0.4);
+        /* BOTONES INTERNOS (PORTAFOLIO) */
+        .btn-portfolio {
+            display: inline-flex;
+            align-items: center;
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 30px 60px rgba(163, 184, 153, 0.15), 
-                        inset 0 1px 0 rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
         }
+        .btn-portfolio:active { background: rgba(255, 255, 255, 0.2); }
 
-        .badge {
-            background: #FFFFFF;
-            color: #0D110E;
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: inline-block;
-            letter-spacing: 0.5px;
-        }
-
-        /* BOTÓN DE ACCIÓN FLUIDO */
-        .btn {
+        /* BOTÓN DE ACCIÓN PRINCIPAL */
+        .btn-main {
             display: block;
             background: #FFFFFF;
             color: #0D110E;
@@ -249,11 +169,53 @@
             margin: 40px auto 0 auto;
             max-width: 320px;
             box-shadow: 0 15px 35px rgba(255, 255, 255, 0.15);
-            transition: transform 0.2s;
         }
 
-        .btn:active {
-            transform: scale(0.97);
+        /* VENTANA FLOTANTE DE VIDEO (MODAL) */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        
+        .modal-content {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 380px; /* Tamaño perfecto vertical tipo Reel */
+            height: 70vh;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .modal-content video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(255,255,255,0.2);
+            border: none; color: white;
+            width: 36px; height: 36px;
+            border-radius: 50%; font-weight: bold;
+            font-size: 1.1rem; cursor: pointer;
+            z-index: 10;
         }
     </style>
 </head>
@@ -266,23 +228,22 @@
     </div>
 
     <section class="hero">
-        <div>
-            <h1>El Sistema Visual para Llenar Mesas</h1>
-            <p>Fusionamos Filmmaking premium de alta estética gastronómica con pauta inteligente para transformar antojo digital en mesas reservadas.</p>
+        <div class="reveal active"> <h1>El Sistema Visual para Llenar Mesas</h1>
+            <p>Fusionamos Filmmaking de alta fidelidad gastronómica con pauta inteligente para transformar antojo digital en visitas reales.</p>
         </div>
     </section>
 
     <section>
         <div class="reveal">
             <h2 class="section-title">Servicios de Iniciación</h2>
-            <p class="section-subtitle">Para arrancar con todo el impacto visual</p>
+            <p class="section-subtitle">Impacto visual inmediato</p>
             
             <div class="liquid-glass-card">
                 <div class="card-header">
                     <span class="card-title">📸 Sesión de Fotos Profesional</span>
                     <span class="price">$440</span>
                 </div>
-                <p class="card-desc">5 Fotografías personalizadas de alta fidelidad de tus productos estrella, barras o espacios clave.</p>
+                <p class="card-desc">5 Fotografías premium de tus platillos estrella o rincones más instagrameables.</p>
             </div>
 
             <div class="liquid-glass-card">
@@ -290,15 +251,7 @@
                     <span class="card-title">🛠️ Setup de Identidad Digital</span>
                     <span class="price">$3,250</span>
                 </div>
-                <p class="card-desc">Construcción estética del perfil, diseño de logos adaptados, moodboard conceptual de marca y 2 semanas completas de administración base.</p>
-            </div>
-
-            <div class="liquid-glass-card">
-                <div class="card-header">
-                    <span class="card-title">🛸 Tomas de Dron Cinematográficas</span>
-                    <span class="price">$2,850</span>
-                </div>
-                <p class="pack-desc">Tomas aéreas espectaculares para resaltar la arquitectura y la ubicación exclusiva de tu cafetería.</p>
+                <p class="card-desc">Moodboard conceptual, optimización estética del perfil y 2 semanas de administración base.</p>
             </div>
         </div>
     </section>
@@ -306,18 +259,18 @@
     <section>
         <div class="reveal">
             <h2 class="section-title">Estrategias Mensuales</h2>
-            <p class="section-subtitle">Sistemas recurrentes de atracción y ventas</p>
+            <p class="section-subtitle">Sistemas continuos de atracción</p>
             
             <div class="liquid-glass-card">
                 <div class="card-header">
                     <span class="card-title">Plan Esencial</span>
                     <span class="price">$5,000<span>/mes</span></span>
                 </div>
-                <p class="card-desc"><strong>Objetivo:</strong> Mantener la cuenta con un feed impecable, activo y sumamente estético.</p>
                 <ul class="features-list">
                     <li>• 4 Reels de Alto Impacto Gastronómico</li>
-                    <li>• 8 Fotografías Premium para Feed / Historias</li>
+                    <li>• 8 Fotografías Estéticas</li>
                 </ul>
+                <button class="btn-portfolio" data-video="https://assets.mixkit.co/videos/preview/mixkit-pouring-hot-coffee-into-a-cup-42310-large.mp4">✨ Ver demo de estilo</button>
             </div>
 
             <div class="liquid-glass-card destacado">
@@ -326,42 +279,64 @@
                     <span class="card-title">Plan Crecimiento</span>
                     <span class="price">$10,000<span>/mes</span></span>
                 </div>
-                <p class="card-desc"><strong>Objetivo:</strong> Expandir el alcance del negocio y generar antojo masivo de manera diaria mediante dinamismo.</p>
                 <ul class="features-list">
-                    <li>• 12 Reels con Narrativa Visual y Tendencias</li>
+                    <li>• 12 Reels con Narrativa y Tendencia</li>
                     <li>• 12 Fotografías Estéticas de Producto</li>
                 </ul>
+                <button class="btn-portfolio" data-video="https://assets.mixkit.co/videos/preview/mixkit-matcha-tea-powder-being-stirred-in-a-bowl-43093-large.mp4">✨ Ver demo de estilo</button>
             </div>
 
-            <div class="liquid-glass-card">
-                <div class="card-header">
-                    <span class="card-title">Plan Aceleración</span>
-                    <span class="price">$15,000<span>/mes</span></span>
-                </div>
-                <p class="card-desc"><strong>Objetivo:</strong> Dominación total del mercado local, ideal para lanzamientos de menú estacionales o campañas agresivas.</p>
-                <ul class="features-list">
-                    <li>• 18 Reels de Máxima Calidad Cinematográfica</li>
-                    <li>• 20 Fotografías Profesionales de Menú</li>
-                </ul>
-            </div>
-
-            <a href="https://wa.me/TU_TELEFONO" class="btn">Agendar Lanzamiento</a>
+            <a href="https://wa.me/TU_TELEFONO" class="btn-main">Agendar Lanzamiento</a>
         </div>
     </section>
 
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeBtn">✕</button>
+            <video id="modalVideo" loop playsinline controls></video>
+        </div>
+    </div>
+
     <script>
+        // Animación Pop-up al bajar
         function checkScroll() {
             var items = document.querySelectorAll('.reveal');
             items.forEach(function(item) {
                 var position = item.getBoundingClientRect().top;
                 var screenHeight = window.innerHeight;
-                if (position < screenHeight * 0.85) {
+                if (position < screenHeight * 0.88) {
                     item.classList.add('active');
                 }
             });
         }
         window.addEventListener('scroll', checkScroll);
         window.addEventListener('load', checkScroll);
+
+        // Control del Reproductor de Video
+        const modal = document.getElementById('videoModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const closeBtn = document.getElementById('closeBtn');
+        const portfolioBtns = document.querySelectorAll('.btn-portfolio');
+
+        portfolioBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const videoSrc = this.getAttribute('data-video');
+                modalVideo.src = videoSrc;
+                modal.classList.add('active');
+                modalVideo.play();
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            modalVideo.pause();
+            modalVideo.src = "";
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) {
+            if(e.target === modal) closeModal();
+        });
     </script>
 </body>
 </html>
