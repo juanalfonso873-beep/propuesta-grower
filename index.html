@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,11 +6,10 @@
     <title>Propuesta de Marketing Exclusiva</title>
     <style>
         :root {
-            --bg: #F9F6F0;
-            --text: #2C3E2B;
-            --matcha: #849B74;
-            --accent: #D4A373;
-            --card-bg: #FFFFFF;
+            --bg-blur: rgba(255, 255, 255, 0.08);
+            --border-white: rgba(255, 255, 255, 0.15);
+            --matcha: #94A984;
+            --accent: #E1B382;
         }
 
         * {
@@ -21,30 +20,32 @@
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
+            background: linear-gradient(rgba(20, 25, 20, 0.8), rgba(15, 20, 15, 0.95)), 
+                        url('https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #FFFFFF;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Secciones de pantalla completa */
         section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 50px 24px;
+            padding: 60px 20px;
             text-align: center;
         }
 
-        /* Animación suave al bajar */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1);
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
         }
 
         .reveal.active {
@@ -52,108 +53,125 @@
             transform: translateY(0);
         }
 
-        /* SECCIÓN 1: BIENVENIDA (HERO) */
-        .hero {
-            background: linear-gradient(rgba(44, 62, 43, 0.75), rgba(44, 62, 43, 0.85)), url('https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
+        /* DISEÑO DE VIDRIO ESTILO APPLE (GLASSMORPHISM) */
+        .glass-card {
+            background: var(--bg-blur);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid var(--border-white);
+            border-radius: 28px; /* Bordes redondeados premium */
+            padding: 30px 25px;
+            margin-bottom: 25px;
+            text-align: left;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
+        /* SECCIÓN 1: INICIO */
         .hero h1 {
-            font-size: 2.3rem;
+            font-size: 2.5rem;
             line-height: 1.2;
             margin-bottom: 20px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .hero p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.15rem;
+            opacity: 0.85;
             line-height: 1.5;
+            max-width: 500px;
         }
 
-        /* SECCIÓN 2: EL MÉTODO */
-        .sistema h2 {
-            font-size: 1.8rem;
-            color: var(--matcha);
-            margin-bottom: 35px;
+        /* SECCIÓN 2: PAQUETES MENSUALES */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
         }
 
-        .pilar {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            text-align: left;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--matcha);
+        .section-subtitle {
+            font-size: 1rem;
+            opacity: 0.6;
+            margin-bottom: 40px;
         }
 
-        .pilar h3 { margin-bottom: 12px; font-size: 1.3rem; }
-        .pilar ul { list-style: none; }
-        .pilar li { margin-bottom: 10px; font-size: 1rem; opacity: 0.85; line-height: 1.4; }
-
-        /* SECCIÓN 3: PAQUETES */
-        .paquetes h2 {
-            font-size: 1.8rem;
-            margin-bottom: 35px;
+        .pack-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
-        .pack-card {
-            background: var(--card-bg);
-            padding: 30px 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            margin-bottom: 25px;
-            position: relative;
-            text-align: center;
-            border: 2px solid transparent;
-        }
-
-        .pack-card.destacado {
-            border-color: var(--matcha);
-            background: #FAFDF9;
-        }
-
-        .badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--matcha);
-            color: white;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            letter-spacing: 0.5px;
+        .pack-title {
+            font-size: 1.4rem;
+            font-weight: 700;
         }
 
         .price {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--matcha);
-            margin: 15px 0;
         }
 
-        /* BOTÓN FINAL */
-        .btn {
+        .price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .pack-desc {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .features-list {
+            list-style: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .features-list li {
+            margin-bottom: 8px;
+        }
+
+        .destacado {
+            border: 1.5px solid var(--matcha);
+            background: rgba(148, 169, 132, 0.08);
+        }
+
+        .badge {
+            background: var(--matcha);
+            color: #141914;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
             display: inline-block;
-            background: var(--text);
-            color: white;
-            padding: 16px 40px;
+        }
+
+        /* BOTÓN DE ACCIÓN */
+        .btn {
+            display: block;
+            background: #FFFFFF;
+            color: #141914;
+            padding: 16px 32px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            box-shadow: 0 6px 20px rgba(44, 62, 43, 0.2);
-            width: 100%;
-            max-width: 320px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-align: center;
+            margin: 30px auto 0 auto;
+            max-width: 300px;
+            transition: background 0.3s;
         }
 
-        .btn:active { transform: scale(0.98); }
+        .btn:active {
+            background: rgba(255,255,255,0.8);
+        }
     </style>
 </head>
 <body>
@@ -161,54 +179,84 @@
     <section class="hero">
         <div>
             <h1>El Sistema Visual para Llenar Mesas</h1>
-            <p>No hacemos videos aislados. Creamos contenido que genera antojo estético combinado con pauta inteligente para atraer clientes diario.</p>
+            <p>Fusionamos Filmmaking premium de alta estética gastronómica con pauta inteligente para transformar antojo digital en clientes reales.</p>
         </div>
     </section>
 
-    <section class="sistema">
+    <section>
         <div class="reveal">
-            <h2>Nuestra Estrategia Híbrida</h2>
+            <h2 class="section-title">Servicios de Iniciación</h2>
+            <p class="section-subtitle">Para arrancar con todo el impacto visual</p>
             
-            <div class="pilar">
-                <h3>🎬 Filmmaking Premium</h3>
-                <p style="margin-bottom:12px; font-weight:600; color:var(--accent);">Contenido que Antoja</p>
-                <ul>
-                    <li>• Videos estéticos enfocados en la experiencia del brunch, café y matcha.</li>
-                    <li>• Formatos dinámicos optimizados para Reels y TikTok.</li>
-                    <li>• Storytelling visual alineado a la identidad de tu marca.</li>
-                </ul>
+            <div class="glass-card">
+                <div class="pack-header">
+                    <span class="pack-title">📸 Sesión de Fotos Profesional</span>
+                    <span class="price">$440</span>
+                </div>
+                <p class="pack-desc">5 Fotografías personalizadas de alta calidad de tu producto estrella, servicio o rincones del local.</p>
             </div>
 
-            <div class="pilar" style="border-left-color: var(--accent);">
-                <h3>🚀 Pauta & Conversión</h3>
-                <p style="margin-bottom:12px; font-weight:600; color:var(--text);">Clientes a la Puerta</p>
-                <ul>
-                    <li>• Anuncios hiper-localizados (público a menos de 5km a la redonda).</li>
-                    <li>• Estrategia de segmentación para captar amantes del café y desayunos.</li>
-                    <li>• Optimización constante de tu presupuesto mensual.</li>
-                </ul>
+            <div class="glass-card">
+                <div class="pack-header">
+                    <span class="pack-title">🛠️ Setup de Identidad Digital</span>
+                    <span class="price">$3,250</span>
+                </div>
+                <p class="pack-desc">Paquete básico de creación y optimización estética de tus cuentas, logos adaptados a redes, moodboard conceptual y 2 semanas completas de administración inicial.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="pack-header">
+                    <span class="pack-title">🛸 Tomas de Dron Cinematográficas</span>
+                    <span class="price">$2,850</span>
+                </div>
+                <p class="pack-desc">Perspectivas aéreas de alto impacto para lucir la fachada, ubicación y la escala de tu negocio desde un ángulo premium.</p>
             </div>
         </div>
     </section>
 
-    <section class="paquetes" style="background: #F2EDE4;">
+    <section>
         <div class="reveal">
-            <h2>Planes Mensuales</h2>
+            <h2 class="section-title">Estrategias Mensuales</h2>
+            <p class="section-subtitle">Sistemas recurrentes de atracción y ventas</p>
             
-            <div class="pack-card">
-                <h3>Plan Esencial</h3>
-                <div class="price">$5,000<span style="font-size:1rem; font-weight:400; color:#666;">/mes</span></div>
-                <p style="opacity:0.8; font-size:0.95rem;">Filmmaking mensual enfocado en estética básica + Pauta de mantenimiento en Meta Ads.</p>
+            <div class="glass-card">
+                <div class="pack-header">
+                    <span class="pack-title">Plan Esencial</span>
+                    <span class="price">$5,000<span>/mes</span></span>
+                </div>
+                <p class="pack-desc"><strong>Objetivo:</strong> Mantener la cuenta viva, estética y constante.</p>
+                <ul class="features-list">
+                    <li>• 4 Reels de Alto Impacto Gastronómico</li>
+                    <li>• 8 Fotografías Premium para Feed / Historias</li>
+                </ul>
             </div>
 
-            <div class="pack-card destacado">
-                <div class="badge">MÁS VISITAS</div>
-                <h3>Plan Aceleración</h3>
-                <div class="price">$8,500<span style="font-size:1rem; font-weight:400; color:#666;">/mes</span></div>
-                <p style="opacity:0.8; font-size:0.95rem;">Contenido premium quincenal + Estrategia agresiva de anuncios dirigida a llenar los fines de semana.</p>
+            <div class="glass-card destacado">
+                <div class="badge">RECOMENDADO PARA BRUNCH & MATCHAS</div>
+                <div class="pack-header">
+                    <span class="pack-title">Plan Crecimiento</span>
+                    <span class="price">$10,000<span>/mes</span></span>
+                </div>
+                <p class="pack-desc"><strong>Objetivo:</strong> Expandir la comunidad y generar antojo diario a través de Historias y Reels constantes.</p>
+                <ul class="features-list">
+                    <li>• 12 Reels con Narrativa Visual Dinámica</li>
+                    <li>• 12 Fotografías Estéticas de Producto</li>
+                </ul>
             </div>
 
-            <a href="https://wa.me/TU_TELEFONO_AQUI" class="btn">Agendar Lanzamiento</a>
+            <div class="glass-card">
+                <div class="pack-header">
+                    <span class="pack-title">Plan Aceleración</span>
+                    <span class="price">$15,000<span>/mes</span></span>
+                </div>
+                <p class="pack-desc"><strong>Objetivo:</strong> Agresividad comercial total, lanzamientos de nuevos platillos y campañas masivas.</p>
+                <ul class="features-list">
+                    <li>• 18 Reels de Máxima Calidad + Tendencias</li>
+                    <li>• 20 Fotografías Profesionales de Menú</li>
+                </ul>
+            </div>
+
+            <a href="https://wa.me/TU_TELEFONO" class="btn">Agendar Lanzamiento</a>
         </div>
     </section>
 
@@ -227,4 +275,4 @@
         window.addEventListener('load', checkScroll);
     </script>
 </body>
-</html>
+</html> 
