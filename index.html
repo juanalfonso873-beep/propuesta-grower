@@ -179,6 +179,7 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             opacity: 0.6;
+            margin-bottom: 35px;
         }
 
         .section-title {
@@ -248,6 +249,13 @@
         }
 
         /* BOTONES DE ACCIÓN CENTRADOS */
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
         .btn-luxury {
             background: var(--grower-dark);
             color: white;
@@ -260,7 +268,6 @@
             font-size: 0.9rem;
             letter-spacing: 0.5px;
             display: inline-block;
-            margin-top: 20px;
             box-shadow: 0 20px 45px rgba(31,46,34,0.25);
             transition: transform 0.2s;
         }
@@ -273,7 +280,6 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: inset 0 1px 2px rgba(255,255,255,0.5), 0 15px 30px rgba(0,0,0,0.03);
-            margin-top: 25px;
         }
 
         /* --- MODALES GENERALES --- */
@@ -366,6 +372,24 @@
             cursor: pointer;
         }
 
+        /* Estilos específicos para la galería de fotos */
+        .gallery-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-top: 10px;
+        }
+
+        .gallery-container img {
+            width: 100%;
+            border-radius: 18px;
+            display: block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
     </style>
 </head>
 <body>
@@ -389,7 +413,10 @@
                 <h1 class="hero-title">GROWER COMPANY</h1>
                 <h2 class="hero-subtitle">Crecemos contigo</h2>
                 <p class="hero-desc">Filmmaking • Agencia Creativa • Marketing</p>
-                <button id="open-video-btn" class="btn-luxury btn-portfolio">▶ Ver Portafolio</button>
+                <div class="hero-buttons">
+                    <button id="open-video-btn" class="btn-luxury btn-portfolio">▶ Ver Portafolio</button>
+                    <button id="open-photos-btn" class="btn-luxury btn-portfolio">Fotografía</button>
+                </div>
             </div>
         </section>
 
@@ -474,14 +501,24 @@
         </div>
     </div>
 
+    <div id="photos-modal" class="modal-overlay">
+        <div class="modal-glass" style="max-width: 550px; padding: 30px; border-radius: 28px;">
+            <button id="close-photos-btn" class="close-modal" style="background: rgba(255,255,255,0.7); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">✕</button>
+            <h3>Galería Fotográfica</h3>
+            <div class="gallery-container">
+                <img src="foto1.jpg" alt="Grower Fotografía 1">
+                <img src="foto2.jpg" alt="Grower Fotografía 2">
+                <img src="foto3.jpg" alt="Grower Fotografía 3">
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Forzar scroll al inicio cuando se recarga la página
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
 
-        // Observador de Scroll para efecto Pop-Up en PC y iPhone
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -521,7 +558,7 @@
             modal.classList.remove('active');
         });
 
-        // --- LÓGICA DEL REPRODUCTOR DE VIDEO CORREGIDA ---
+        // --- LÓGICA DEL REPRODUCTOR DE VIDEO ---
         const videoModal = document.getElementById('video-modal');
         const openVideoBtn = document.getElementById('open-video-btn');
         const navVideoBtn = document.getElementById('nav-portfolio-btn');
@@ -531,17 +568,11 @@
         function launchVideoPlayer(e) {
             if(e) e.preventDefault();
             videoModal.classList.add('active');
-            
-            // Forzar recarga limpia del asset para evitar bloqueos de buffer en Safari/Chrome
             portfolioVideo.load();
             
-            // Promise handling para asegurar la reproducción programática segura
             const playPromise = portfolioVideo.play();
             if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // Reproducción exitosa con audio
-                }).catch(error => {
-                    console.log("Autoplay con audio bloqueado, intentando mutado de respaldo:", error);
+                playPromise.then(_ => {}).catch(error => {
                     portfolioVideo.muted = true;
                     portfolioVideo.play();
                 });
@@ -558,6 +589,23 @@
         navVideoBtn.addEventListener('click', launchVideoPlayer);
         closeVideoBtn.addEventListener('click', hideVideoModal);
         videoModal.addEventListener('click', (e) => { if(e.target === videoModal) hideVideoModal(); });
+
+        // --- LÓGICA DEL MODAL DE FOTOGRAFÍA ---
+        const photosModal = document.getElementById('photos-modal');
+        const openPhotosBtn = document.getElementById('open-photos-btn');
+        const closePhotosBtn = document.getElementById('close-photos-btn');
+
+        openPhotosBtn.addEventListener('click', () => {
+            photosModal.classList.add('active');
+        });
+
+        closePhotosBtn.addEventListener('click', () => {
+            photosModal.classList.remove('active');
+        });
+
+        photosModal.addEventListener('click', (e) => { 
+            if(e.target === photosModal) photosModal.classList.remove('active'); 
+        });
 
     </script>
 </body>
