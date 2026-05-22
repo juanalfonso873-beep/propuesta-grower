@@ -259,13 +259,13 @@
         .btn-luxury {
             background: var(--grower-dark);
             color: white;
-            padding: 22px 60px;
+            padding: 22px 45px;
             border-radius: 100px;
             border: none;
             cursor: pointer;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 0.5px;
             display: inline-block;
             box-shadow: 0 20px 45px rgba(31,46,34,0.25);
@@ -415,6 +415,7 @@
                 <p class="hero-desc">Filmmaking • Agencia Creativa • Marketing</p>
                 <div class="hero-buttons">
                     <button id="open-video-btn" class="btn-luxury btn-portfolio">▶ Ver Portafolio</button>
+                    <button id="open-drone-btn" class="btn-luxury btn-portfolio">Tomas Aéreas</button>
                     <button id="open-photos-btn" class="btn-luxury btn-portfolio">Fotografía</button>
                 </div>
             </div>
@@ -501,6 +502,16 @@
         </div>
     </div>
 
+    <div id="drone-modal" class="modal-overlay">
+        <div class="modal-glass" style="max-width: 400px; padding: 12px; border-radius: 28px;">
+            <button id="close-drone-btn" class="close-modal" style="background: rgba(255,255,255,0.7); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">✕</button>
+            <video id="drone-video" style="width: 100%; border-radius: 18px; display: block; box-shadow: 0 15px 40px rgba(0,0,0,0.1);" controls playsinline preload="auto">
+                <source src="https://juanalfonso873-beep.github.io/propuesta-grower/dron.mp4" type="video/mp4">
+                Tu navegador no soporta reproducción de video nativo.
+            </video>
+        </div>
+    </div>
+
     <div id="photos-modal" class="modal-overlay">
         <div class="modal-glass" style="max-width: 550px; padding: 30px; border-radius: 28px;">
             <button id="close-photos-btn" class="close-modal" style="background: rgba(255,255,255,0.7); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">✕</button>
@@ -521,15 +532,12 @@
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); }
             });
         }, { threshold: 0.12 });
-
         document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
 
-        // --- LÓGICA DEL MODAL DE SELECCIÓN DE PLANES ---
+        // --- LÓGICA DE SELECCIÓN DE PLANES WHATSAPP ---
         const modal = document.getElementById('wa-modal');
         const openBtn = document.getElementById('open-modal-btn');
         const closeBtn = document.getElementById('close-modal-btn');
@@ -543,22 +551,19 @@
             const checkboxes = document.querySelectorAll('.plan-options input[type="checkbox"]:checked');
             let selectedPlans = [];
             checkboxes.forEach((cb) => selectedPlans.push(cb.value));
-
             const phoneNumber = "528134480481"; 
             let message = "";
-
             if (selectedPlans.length > 0) {
                 message = `¡Hola GROWER COMPANY! Me interesa cotizar y agendar un lanzamiento. He seleccionado los siguientes planes:\n\n- ${selectedPlans.join('\n- ')}\n\n¿Podrían darme más información?`;
             } else {
                 message = `¡Hola GROWER COMPANY! Me interesa conocer más sobre sus servicios para agendar un lanzamiento.`;
             }
-
             const encodedMessage = encodeURIComponent(message);
             window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
             modal.classList.remove('active');
         });
 
-        // --- LÓGICA DEL REPRODUCTOR DE VIDEO ---
+        // --- LÓGICA DEL REPRODUCTOR PORTAFOLIO ---
         const videoModal = document.getElementById('video-modal');
         const openVideoBtn = document.getElementById('open-video-btn');
         const navVideoBtn = document.getElementById('nav-portfolio-btn');
@@ -569,7 +574,6 @@
             if(e) e.preventDefault();
             videoModal.classList.add('active');
             portfolioVideo.load();
-            
             const playPromise = portfolioVideo.play();
             if (playPromise !== undefined) {
                 playPromise.then(_ => {}).catch(error => {
@@ -590,22 +594,43 @@
         closeVideoBtn.addEventListener('click', hideVideoModal);
         videoModal.addEventListener('click', (e) => { if(e.target === videoModal) hideVideoModal(); });
 
+        // --- LÓGICA DEL REPRODUCTOR DE DRON ---
+        const droneModal = document.getElementById('drone-modal');
+        const openDroneBtn = document.getElementById('open-drone-btn');
+        const closeDroneBtn = document.getElementById('close-drone-btn');
+        const droneVideo = document.getElementById('drone-video');
+
+        function launchDronePlayer(e) {
+            if(e) e.preventDefault();
+            droneModal.classList.add('active');
+            droneVideo.load();
+            const playPromise = droneVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {}).catch(error => {
+                    droneVideo.muted = true;
+                    droneVideo.play();
+                });
+            }
+        }
+
+        function hideDroneModal() {
+            droneModal.classList.remove('active');
+            droneVideo.pause();
+            droneVideo.currentTime = 0;
+        }
+
+        openDroneBtn.addEventListener('click', launchDronePlayer);
+        closeDroneBtn.addEventListener('click', hideDroneModal);
+        droneModal.addEventListener('click', (e) => { if(e.target === droneModal) hideDroneModal(); });
+
         // --- LÓGICA DEL MODAL DE FOTOGRAFÍA ---
         const photosModal = document.getElementById('photos-modal');
         const openPhotosBtn = document.getElementById('open-photos-btn');
         const closePhotosBtn = document.getElementById('close-photos-btn');
 
-        openPhotosBtn.addEventListener('click', () => {
-            photosModal.classList.add('active');
-        });
-
-        closePhotosBtn.addEventListener('click', () => {
-            photosModal.classList.remove('active');
-        });
-
-        photosModal.addEventListener('click', (e) => { 
-            if(e.target === photosModal) photosModal.classList.remove('active'); 
-        });
+        openPhotosBtn.addEventListener('click', () => photosModal.classList.add('active'));
+        closePhotosBtn.addEventListener('click', () => photosModal.classList.remove('active'));
+        photosModal.addEventListener('click', (e) => { if(e.target === photosModal) photosModal.classList.remove('active'); });
 
     </script>
 </body>
