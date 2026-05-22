@@ -467,8 +467,8 @@
     <div id="video-modal" class="modal-overlay">
         <div class="modal-glass" style="max-width: 400px; padding: 12px; border-radius: 28px;">
             <button id="close-video-btn" class="close-modal" style="background: rgba(255,255,255,0.7); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">✕</button>
-            <video id="portfolio-video" style="width: 100%; border-radius: 18px; display: block; box-shadow: 0 15px 40px rgba(0,0,0,0.1);" controls playsinline>
-                <source src="portafolio.mp4" type="video/mp4">
+            <video id="portfolio-video" style="width: 100%; border-radius: 18px; display: block; box-shadow: 0 15px 40px rgba(0,0,0,0.1);" controls playsinline preload="auto">
+                <source src="https://juanalfonso873-beep.github.io/propuesta-grower/portafolio.mp4" type="video/mp4">
                 Tu navegador no soporta reproducción de video nativo.
             </video>
         </div>
@@ -521,7 +521,7 @@
             modal.classList.remove('active');
         });
 
-        // --- LÓGICA DEL REPRODUCTOR DE VIDEO (CONEXIÓN DOBLE BOTÓN) ---
+        // --- LÓGICA DEL REPRODUCTOR DE VIDEO CORREGIDA ---
         const videoModal = document.getElementById('video-modal');
         const openVideoBtn = document.getElementById('open-video-btn');
         const navVideoBtn = document.getElementById('nav-portfolio-btn');
@@ -531,7 +531,21 @@
         function launchVideoPlayer(e) {
             if(e) e.preventDefault();
             videoModal.classList.add('active');
-            portfolioVideo.play();
+            
+            // Forzar recarga limpia del asset para evitar bloqueos de buffer en Safari/Chrome
+            portfolioVideo.load();
+            
+            // Promise handling para asegurar la reproducción programática segura
+            const playPromise = portfolioVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Reproducción exitosa con audio
+                }).catch(error => {
+                    console.log("Autoplay con audio bloqueado, intentando mutado de respaldo:", error);
+                    portfolioVideo.muted = true;
+                    portfolioVideo.play();
+                });
+            }
         }
 
         function hideVideoModal() {
@@ -540,11 +554,8 @@
             portfolioVideo.currentTime = 0;
         }
 
-        // Eventos para abrir desde el Hero o desde el menú superior
         openVideoBtn.addEventListener('click', launchVideoPlayer);
         navVideoBtn.addEventListener('click', launchVideoPlayer);
-
-        // Cerrar modal
         closeVideoBtn.addEventListener('click', hideVideoModal);
         videoModal.addEventListener('click', (e) => { if(e.target === videoModal) hideVideoModal(); });
 
