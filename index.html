@@ -189,7 +189,7 @@
             text-transform: uppercase;
         }
 
-        /* --- COMPONENTES INTERNOS --- */
+        /* --- COMPONENTES INTERNOS CENTRADOS --- */
         .tag {
             background: var(--grower-dark);
             color: white;
@@ -247,7 +247,7 @@
             opacity: 0.9;
         }
 
-        /* BOTONES DE ACCIÓN */
+        /* BOTONES DE ACCIÓN CENTRADOS */
         .btn-luxury {
             background: var(--grower-dark);
             color: white;
@@ -377,7 +377,7 @@
     <nav>
         <div class="nav-bar">
             <a href="#inicio">Inicio</a>
-            <a href="#portafolio">Portafolio</a>
+            <a href="#" id="nav-portfolio-btn">Portafolio</a>
             <a href="#planes">Planes</a>
         </div>
     </nav>
@@ -393,7 +393,7 @@
             </div>
         </section>
 
-        <section id="portafolio">
+        <section id="portafolio-section">
             <div class="popup-card reveal-item">
                 <h2 class="section-title">CONÓCENOS</h2>
 
@@ -468,7 +468,7 @@
         <div class="modal-glass" style="max-width: 400px; padding: 12px; border-radius: 28px;">
             <button id="close-video-btn" class="close-modal" style="background: rgba(255,255,255,0.7); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">✕</button>
             <video id="portfolio-video" style="width: 100%; border-radius: 18px; display: block; box-shadow: 0 15px 40px rgba(0,0,0,0.1);" controls playsinline>
-                <source src="perro.mp4" type="video/mp4">
+                <source src="portafolio.mp4" type="video/mp4">
                 Tu navegador no soporta reproducción de video nativo.
             </video>
         </div>
@@ -521,23 +521,30 @@
             modal.classList.remove('active');
         });
 
-        // --- LÓGICA DEL REPRODUCTOR DE VIDEO LOCAL ---
+        // --- LÓGICA DEL REPRODUCTOR DE VIDEO (CONEXIÓN DOBLE BOTÓN) ---
         const videoModal = document.getElementById('video-modal');
         const openVideoBtn = document.getElementById('open-video-btn');
+        const navVideoBtn = document.getElementById('nav-portfolio-btn');
         const closeVideoBtn = document.getElementById('close-video-btn');
         const portfolioVideo = document.getElementById('portfolio-video');
 
-        openVideoBtn.addEventListener('click', () => {
+        function launchVideoPlayer(e) {
+            if(e) e.preventDefault();
             videoModal.classList.add('active');
             portfolioVideo.play();
-        });
+        }
 
         function hideVideoModal() {
             videoModal.classList.remove('active');
             portfolioVideo.pause();
-            portfolioVideo.currentTime = 0; // Reinicia el video desde el inicio
+            portfolioVideo.currentTime = 0;
         }
 
+        // Eventos para abrir desde el Hero o desde el menú superior
+        openVideoBtn.addEventListener('click', launchVideoPlayer);
+        navVideoBtn.addEventListener('click', launchVideoPlayer);
+
+        // Cerrar modal
         closeVideoBtn.addEventListener('click', hideVideoModal);
         videoModal.addEventListener('click', (e) => { if(e.target === videoModal) hideVideoModal(); });
 
