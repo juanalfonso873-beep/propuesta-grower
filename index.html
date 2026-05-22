@@ -8,6 +8,7 @@
         :root {
             --grower-dark: #1F2E22;
             --matcha-accent: #6E8868;
+            /* Ultra-transparencia avanzada para efecto vidrio puro */
             --glass-sheet: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.6);
             --glass-glow: rgba(255, 255, 255, 0.75);
@@ -188,7 +189,7 @@
             text-transform: uppercase;
         }
 
-        /* --- COMPONENTES INTERNOS CENTRADOS --- */
+        /* --- COMPONENTES INTERNOS --- */
         .tag {
             background: var(--grower-dark);
             color: white;
@@ -246,7 +247,7 @@
             opacity: 0.9;
         }
 
-        /* BOTÓN CTA PRINCIPAL */
+        /* BOTONES DE ACCIÓN */
         .btn-luxury {
             background: var(--grower-dark);
             color: white;
@@ -265,7 +266,17 @@
         }
         .btn-luxury:active { transform: scale(0.96); }
 
-        /* --- MODAL DE SELECCIÓN DE PLANES --- */
+        .btn-portfolio {
+            background: rgba(255, 255, 255, 0.25);
+            color: var(--grower-dark);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.5), 0 15px 30px rgba(0,0,0,0.03);
+            margin-top: 25px;
+        }
+
+        /* --- MODALES GENERALES --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -313,6 +324,8 @@
             font-size: 1.2rem;
             cursor: pointer;
             color: var(--grower-dark);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10;
         }
 
         .modal-glass h3 {
@@ -345,14 +358,10 @@
             transition: background 0.2s;
         }
 
-        .plan-options label:hover {
-            background: rgba(255,255,255,0.8);
-        }
+        .plan-options label:hover { background: rgba(255,255,255,0.8); }
 
-        /* Checkbox personalizado */
         .plan-options input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 18px; height: 18px;
             accent-color: var(--grower-dark);
             cursor: pointer;
         }
@@ -380,6 +389,7 @@
                 <h1 class="hero-title">GROWER COMPANY</h1>
                 <h2 class="hero-subtitle">Crecemos contigo</h2>
                 <p class="hero-desc">Filmmaking • Agencia Creativa • Marketing</p>
+                <button id="open-video-btn" class="btn-luxury btn-portfolio">▶ Ver Portafolio</button>
             </div>
         </section>
 
@@ -454,6 +464,16 @@
         </div>
     </div>
 
+    <div id="video-modal" class="modal-overlay">
+        <div class="modal-glass" style="max-width: 400px; padding: 12px; border-radius: 28px;">
+            <button id="close-video-btn" class="close-modal" style="background: rgba(255,255,255,0.7); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">✕</button>
+            <video id="portfolio-video" style="width: 100%; border-radius: 18px; display: block; box-shadow: 0 15px 40px rgba(0,0,0,0.1);" controls playsinline>
+                <source src="perro.mp4" type="video/mp4">
+                Tu navegador no soporta reproducción de video nativo.
+            </video>
+        </div>
+    </div>
+
     <script>
         // Forzar scroll al inicio cuando se recarga la página
         if ('scrollRestoration' in history) {
@@ -472,39 +492,21 @@
 
         document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
 
-        // LOGICA DEL MODAL DE WHATSAPP
+        // --- LÓGICA DEL MODAL DE SELECCIÓN DE PLANES ---
         const modal = document.getElementById('wa-modal');
         const openBtn = document.getElementById('open-modal-btn');
         const closeBtn = document.getElementById('close-modal-btn');
         const sendWaBtn = document.getElementById('send-wa-btn');
 
-        // Abrir Modal
-        openBtn.addEventListener('click', () => {
-            modal.classList.add('active');
-        });
+        openBtn.addEventListener('click', () => modal.classList.add('active'));
+        closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
 
-        // Cerrar Modal
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-
-        // Cerrar haciendo clic afuera del modal
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-
-        // Enviar a WhatsApp
         sendWaBtn.addEventListener('click', () => {
             const checkboxes = document.querySelectorAll('.plan-options input[type="checkbox"]:checked');
             let selectedPlans = [];
-            
-            checkboxes.forEach((cb) => {
-                selectedPlans.push(cb.value);
-            });
+            checkboxes.forEach((cb) => selectedPlans.push(cb.value));
 
-            // Numero de telefono de México (Código 52)
             const phoneNumber = "528134480481"; 
             let message = "";
 
@@ -515,11 +517,29 @@
             }
 
             const encodedMessage = encodeURIComponent(message);
-            const waLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            
-            window.open(waLink, '_blank');
-            modal.classList.remove('active'); // Opcional: cierra el modal después de redirigir
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+            modal.classList.remove('active');
         });
+
+        // --- LÓGICA DEL REPRODUCTOR DE VIDEO LOCAL ---
+        const videoModal = document.getElementById('video-modal');
+        const openVideoBtn = document.getElementById('open-video-btn');
+        const closeVideoBtn = document.getElementById('close-video-btn');
+        const portfolioVideo = document.getElementById('portfolio-video');
+
+        openVideoBtn.addEventListener('click', () => {
+            videoModal.classList.add('active');
+            portfolioVideo.play();
+        });
+
+        function hideVideoModal() {
+            videoModal.classList.remove('active');
+            portfolioVideo.pause();
+            portfolioVideo.currentTime = 0; // Reinicia el video desde el inicio
+        }
+
+        closeVideoBtn.addEventListener('click', hideVideoModal);
+        videoModal.addEventListener('click', (e) => { if(e.target === videoModal) hideVideoModal(); });
 
     </script>
 </body>
